@@ -1,28 +1,23 @@
 @import "tailwindcss";
 
 :root {
-  /* Core Tokens */
-  --color-bg-primary: #FAFAFA;
-  --color-surface: #FFFFFF;
-  --color-text-primary: #1A1A1A;
-  --color-text-secondary: #6B7280;
+  --bg-base: #FAFAFA;
+  --surface-main: #FFFFFF;
+  --text-primary: #111827;
+  --text-muted: #6B7280;
+  --border-subtle: #E5E7EB;
   
-  /* Brand/Accent Tokens */
-  --color-brand-light: #A7F3D0; /* Light green from video */
-  --color-brand-base: #34D399; /* Main green */
-  --color-brand-dark: #059669; /* Darker accent */
+  /* Brand Colors - Essential for the bars to appear */
+  --brand-light: #A7F3D0; 
+  --brand-base: #34D399;
+  --brand-dark: #065F46;
 
-  /* Layout Tokens (Logical Properties) */
-  --radius-md: 0.5rem;
-  --radius-lg: 1rem;
-  --spacing-fluid: clamp(1rem, 2vw, 2.5rem);
+  --shadow-premium: 0 10px 25px -5px rgba(0,0,0,0.05);
 }
 
 body {
-  background-color: var(--color-bg-primary);
-  color: var(--color-text-primary);
-  font-family: system-ui, sans-serif;
-  margin: 0;
-  padding-inline: var(--spacing-fluid);
-  padding-block: var(--spacing-fluid);
+  background-color: var(--bg-base);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  padding: clamp(1rem, 5vw, 3rem);
 }
