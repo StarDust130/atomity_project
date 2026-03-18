@@ -29,7 +29,7 @@ export default function Dashboard() {
       animate={{ opacity: 1, y: 0 }}
       className="bg-[var(--surface-main)] w-full max-w-5xl mx-auto rounded-[var(--radius-card)] p-6 sm:p-10 shadow-[var(--shadow-premium)] border-2 border-[var(--border-subtle)] overflow-hidden"
     >
-      <header className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-8">
+      <header className="flex flex-row items-start sm:items-center gap-4 mb-8">
         <button className="px-4 py-2 bg-white border border-[var(--border-subtle)] rounded-lg font-medium text-sm hover:bg-gray-50 transition-colors">
           Last 30 Days
         </button>
