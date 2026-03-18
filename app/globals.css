@@ -1,18 +1,19 @@
 @import "tailwindcss";
 
 :root {
-  --bg-base: #FAFAFA;
+  --bg-base: #F8FAFC;
   --surface-main: #FFFFFF;
-  --text-primary: #111827;
-  --text-muted: #6B7280;
-  --border-subtle: #E5E7EB;
+  --text-primary: #0F172A;
+  --text-muted: #64748B;
+  --border-subtle: #E2E8F0;
   
-  /* Brand Colors - Essential for the bars to appear */
-  --brand-light: #A7F3D0; 
-  --brand-base: #34D399;
-  --brand-dark: #065F46;
+  --brand-light: #BBF7D0;
+  --brand-base: #22C55E;
+  --brand-dark: #15803D;
+  --brand-glow: rgba(34, 197, 94, 0.25);
 
-  --shadow-premium: 0 10px 25px -5px rgba(0,0,0,0.05);
+  --radius-card: 24px;
+  --shadow-premium: 0 10px 40px -10px rgba(0,0,0,0.08);
 }
 
 body {
@@ -20,4 +21,11 @@ body {
   color: var(--text-primary);
   -webkit-font-smoothing: antialiased;
   padding: clamp(1rem, 5vw, 3rem);
+}
+
+/* Fix chart hover dimming */
+.chart-container:has(.chart-bar:hover) .chart-bar:not(:hover) {
+  opacity: 0.3;
+  filter: saturate(0%);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
