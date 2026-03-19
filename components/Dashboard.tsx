@@ -57,9 +57,9 @@ export default function Dashboard() {
       initial={{ opacity: 0, y: 30, filter: "blur(8px)" }}
       animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-      className="bg-(--surface-main) backdrop-blur-2xl w-full max-w-5xl mx-auto rounded-[24px] sm:rounded-[32px] p-4 sm:p-8 lg:p-10 shadow-(--shadow-premium) border border-(--border-subtle) relative flex flex-col overflow-hidden"
+      className="bg-(--surface-main) backdrop-blur-2xl w-full max-w-5xl mx-auto rounded-[24px] sm:rounded-[32px] p-4 sm:p-8 lg:p-10 shadow-(--shadow-premium) border border-(--border-subtle) relative flex flex-col"
     >
-      <div className="absolute inset-0 pointer-events-none z-0">
+      <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden rounded-[inherit]">
         <div className="absolute -top-32 -right-32 w-[600px] h-150 bg-(--brand-glow) rounded-full blur-[120px] opacity-20" />
         <div className="absolute -bottom-32 -left-32 w-[500px] h-[500px] bg-blue-400/10 rounded-full blur-[100px] opacity-30" />
       </div>
@@ -88,12 +88,12 @@ export default function Dashboard() {
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
-          className="flex flex-row w-full md:w-auto items-center gap-3 justify-between md:justify-end shrink min-w-0"
+          className="flex flex-row w-full md:w-auto items-center gap-2 sm:gap-3 justify-start sm:justify-end shrink min-w-0 flex-nowrap overflow-x-auto no-scrollbar sm:overflow-visible pb-1 sm:pb-0"
         >
           {/* Last 30 Days Button with Cool Tooltip 🌟 */}
-          <div className="relative group shrink-0">
-            <button className="flex items-center justify-center gap-2 px-4 py-2.5 bg-white border border-gray-100 shadow-sm rounded-2xl font-bold text-[13px] sm:text-sm text-gray-700 hover:shadow-md hover:border-gray-200 transition-all focus:ring-2 focus:ring-(--brand-light) outline-none">
-              <CalendarDays className="w-4 h-4 text-(--brand-base)" />
+          <div className="relative group flex-shrink-0">
+            <button className="flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 bg-white border border-gray-100 shadow-sm rounded-[12px] sm:rounded-2xl font-bold text-[12px] sm:text-sm text-gray-700 hover:shadow-md hover:border-gray-200 transition-all focus:ring-2 focus:ring-(--brand-light) outline-none whitespace-nowrap">
+              <CalendarDays className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-(--brand-base)" />
               <span className="hidden sm:inline">Last 30 Days</span>
               <span className="sm:hidden">30D</span>
             </button>
@@ -111,23 +111,23 @@ export default function Dashboard() {
           </div>
 
           {/* Breadcrumb Navigation 🧭 Matches Screenshot Exactly */}
-          <div className="inline-flex items-center w-auto max-w-full flex-wrap overflow-visible bg-gray-50/80 border border-gray-100 shadow-inner rounded-2xl p-1.5 sm:p-2 min-w-0 shrink-0">
-            <div className="flex items-center gap-1 flex-wrap sm:flex-nowrap">
-              <div className="relative group flex">
+          <div className="inline-flex items-center w-auto max-w-full flex-nowrap overflow-visible bg-gray-50/80 border border-gray-100 shadow-inner rounded-[14px] sm:rounded-[16px] p-1 sm:p-2 min-w-0 shrink">
+            <div className="flex items-center gap-0.5 sm:gap-1 flex-nowrap">
+              <div className="relative group flex shrink-0">
                 <button
                   onClick={() => handleGoBack(-1)}
-                  className={`px-4 py-1.5 rounded-xl text-[14px] font-extrabold transition-all duration-300 whitespace-nowrap ${
+                  className={`px-3 sm:px-4 py-1.5 rounded-[10px] sm:rounded-xl text-[12px] sm:text-[14px] font-extrabold transition-all duration-300 whitespace-nowrap ${
                     path.length === 0
-                      ? "bg-white text-(--brand-base) shadow-sm ring-1 ring-gray-100"
-                      : "text-gray-600 hover:text-gray-900 hover:bg-gray-200/50"
+                      ? "bg-white text-(--brand-base) shadow-sm ring-1 ring-gray-100 cursor-default"
+                      : "text-gray-600 hover:text-gray-900 hover:bg-gray-200/50 cursor-pointer"
                   }`}
                 >
                   Clusters
                 </button>
                 {/* Tooltip */}
                 {path.length > 0 && (
-                  <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none flex flex-col items-center z-50 translate-y-2 group-hover:translate-y-0">
-                    <div className="bg-gray-900 text-white text-[11px] py-1.5 px-3 rounded-lg font-semibold whitespace-nowrap shadow-xl">
+                  <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none hidden sm:flex flex-col items-center z-50 translate-y-2 group-hover:translate-y-0">
+                    <div className="bg-gray-900 text-white text-[11px] py-1.5 px-3 rounded-[10px] font-semibold whitespace-nowrap shadow-xl">
                       Back to root
                     </div>
                     <div className="w-0 h-0 border-l-[5px] border-l-transparent border-r-[5px] border-r-transparent border-t-[5px] border-t-gray-900"></div>
@@ -144,16 +144,16 @@ export default function Dashboard() {
                       initial={{ opacity: 0, scale: 0.9, width: 0 }}
                       animate={{ opacity: 1, scale: 1, width: "auto" }}
                       exit={{ opacity: 0, scale: 0.9, width: 0 }}
-                      className="flex items-center"
+                      className="flex items-center shrink-0"
                     >
-                      <ChevronRight className="w-4 h-4 text-gray-400 mx-0.5 sm:mx-1 shrink-0" />
-                      <div className="relative group flex">
+                      <ChevronRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-400 mx-0.5 sm:mx-1 shrink-0" />
+                      <div className="relative group flex shrink-0">
                         <button
                           onClick={() => handleGoBack(index)}
-                          className={`px-4 py-1.5 rounded-xl text-[14px] font-extrabold transition-all duration-300 whitespace-nowrap ${
+                          className={`px-3 sm:px-4 py-1.5 rounded-[10px] sm:rounded-xl text-[12px] sm:text-[14px] font-extrabold transition-all duration-300 whitespace-nowrap ${
                             isLast
-                              ? "bg-white text-(--brand-base) shadow-sm ring-1 ring-gray-100"
-                              : "text-gray-500 hover:text-gray-900 hover:bg-gray-200/50"
+                              ? "bg-white text-(--brand-base) shadow-sm ring-1 ring-gray-100 cursor-default"
+                              : "text-gray-500 hover:text-gray-900 hover:bg-gray-200/50 cursor-pointer"
                           }`}
                         >
                           {segment.name.split(" ")[1] || segment.name}
@@ -161,8 +161,8 @@ export default function Dashboard() {
 
                         {/* Tooltip */}
                         {!isLast && (
-                          <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none flex flex-col items-center z-50 translate-y-2 group-hover:translate-y-0">
-                            <div className="bg-gray-900 text-white text-[11px] py-1.5 px-3 rounded-lg font-semibold whitespace-nowrap shadow-xl">
+                          <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none hidden sm:flex flex-col items-center z-50 translate-y-2 group-hover:translate-y-0">
+                            <div className="bg-gray-900 text-white text-[11px] py-1.5 px-3 rounded-[10px] font-semibold whitespace-nowrap shadow-xl">
                               Go back to{" "}
                               {segment.name.split(" ")[1] || segment.name}
                             </div>
