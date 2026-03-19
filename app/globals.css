@@ -1,21 +1,22 @@
 @import "tailwindcss";
 
 :root {
-  --bg-base: #f8fafc;
-  --surface-main: #ffffff;
+  --bg-base: #f4f6fb;
+  --surface-main: rgba(255, 255, 255, 0.7);
   --text-primary: #0f172a;
   --text-muted: #64748b;
-  --border-subtle: #e2e8f0;
+  --border-subtle: rgba(226, 232, 240, 0.6);
 
   --brand-light: #6ee7b7;
   --brand-base: #10b981;
   --brand-dark: #047857;
-  --brand-glow: rgba(16, 185, 129, 0.4);
+  --brand-glow: rgba(16, 185, 129, 0.5);
 
-  --radius-card: 20px;
+  --radius-card: 24px;
   --shadow-premium:
-    0 20px 40px -10px rgba(0, 0, 0, 0.1), 0 10px 20px -5px rgba(0, 0, 0, 0.04),
-    0 0 0 1px rgba(0, 0, 0, 0.02);
+    0 30px 60px -12px rgba(0, 0, 0, 0.08),
+    0 18px 36px -18px rgba(0, 0, 0, 0.05),
+    0 0 0 1px rgba(255, 255, 255, 0.5) inset, 0 0 0 1px rgba(0, 0, 0, 0.02);
 }
 
 body {
@@ -23,6 +24,11 @@ body {
   color: var(--text-primary);
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
+  background-image:
+    radial-gradient(at 40% 20%, rgba(16, 185, 129, 0.1) 0px, transparent 50%),
+    radial-gradient(at 80% 0%, rgba(56, 189, 248, 0.1) 0px, transparent 50%),
+    radial-gradient(at 0% 50%, rgba(16, 185, 129, 0.05) 0px, transparent 50%);
+  background-attachment: fixed;
 }
 
 /* Fix chart hover dimming */
