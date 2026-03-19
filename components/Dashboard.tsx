@@ -104,7 +104,7 @@ export default function Dashboard() {
                 <span className="text-gray-400 uppercase text-[10px] tracking-widest border-r border-gray-700 pr-2">
                   Filter
                 </span>
-                <span>Coming Soon</span>
+                <span>Coming Soon 😆</span>
               </div>
               <div className="w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[6px] border-t-gray-900"></div>
             </div>
