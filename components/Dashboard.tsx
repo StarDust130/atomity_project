@@ -27,16 +27,21 @@ export default function Dashboard() {
 
   if (isLoading)
     return (
-      <div className="max-w-5xl mx-auto h-[600px] bg-white rounded-(--radius-card) shadow-sm animate-pulse flex items-center justify-center text-(--text-muted) font-medium">
-        <div className="flex flex-col items-center gap-4">
-          <Loader2 className="w-8 h-8 text-(--brand-base) animate-spin" />
-          Loading telemetry...
+      <div className="w-full min-h-[300px] flex items-center justify-center">
+        <div className="flex flex-col items-center gap-3">
+          {/* Loader */}
+          <Loader2 className="w-8 h-8 text-green-500 animate-spin" />
+
+          {/* Text */}
+          <p className="text-sm text-gray-400 font-medium">
+            Loading telemetry...
+          </p>
         </div>
       </div>
     );
   if (isError || !data)
     return (
-      <div className="max-w-5xl mx-auto h-[600px] flex flex-col items-center justify-center text-red-500 font-medium bg-white rounded-(--radius-card)">
+      <div className="max-w-5xl mx-auto h-150 flex flex-col items-center justify-center text-red-500 font-medium bg-white rounded-(--radius-card)">
         <AlertCircle className="w-8 h-8 mb-2" />
         Failed to load data
       </div>
@@ -55,7 +60,7 @@ export default function Dashboard() {
       className="bg-(--surface-main) backdrop-blur-2xl w-full max-w-5xl mx-auto rounded-[24px] sm:rounded-[32px] p-4 sm:p-8 lg:p-10 shadow-(--shadow-premium) border border-(--border-subtle) relative flex flex-col overflow-hidden"
     >
       <div className="absolute inset-0 pointer-events-none z-0">
-        <div className="absolute -top-32 -right-32 w-[600px] h-[600px] bg-(--brand-glow) rounded-full blur-[120px] opacity-20" />
+        <div className="absolute -top-32 -right-32 w-[600px] h-150 bg-(--brand-glow) rounded-full blur-[120px] opacity-20" />
         <div className="absolute -bottom-32 -left-32 w-[500px] h-[500px] bg-blue-400/10 rounded-full blur-[100px] opacity-30" />
       </div>
 
