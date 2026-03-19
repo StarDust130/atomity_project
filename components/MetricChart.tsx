@@ -54,8 +54,8 @@ export function MetricChart({
                     <span className="text-sm font-extrabold text-(--brand-light) mt-0.5 mb-1">
                       ${metric.total.toLocaleString()}
                     </span>
-                    <span className="text-[9px] sm:text-[10px] tracking-wider uppercase font-bold text-gray-300 bg-white/10 px-2 py-0.5 rounded-md">
-                      View details →
+                    <span className="text-[9px] sm:text-[10px] tracking-wider uppercase font-bold  px-2 py-0.5 rounded-md">
+                      View details
                     </span>
                     <div className="absolute top-full left-1/2 -translate-x-1/2 w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[6px] border-t-gray-900"></div>
                   </div>
