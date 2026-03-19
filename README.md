@@ -1,72 +1,70 @@
-# íº€ Atomity Frontend Challenge - My Submission
+# ğŸš€ Atomity Frontend Challenge - My Submission
 
-## í±‹ Hello and Welcome!
+**Live Demo:** [https://atomity-project-weld.vercel.app/](https://atomity-project-weld.vercel.app/)
 
-Thank you for reviewing my work! This is my submission for the **Atomity Frontend Engineering Challenge**. I chose **Option A** (the dynamic cluster cost visualization) to build a beautiful, high-performance cloud dashboard. 
+## ğŸ‘‹ Hello and Welcome!
 
-My main goal was to make this look, feel, and run like a **premium, top-tier SaaS product**. í²
+Thank you for reviewing my work! This is my submission for the **Atomity Frontend Engineering Challenge**, focusing on the dynamic cluster cost visualization (Option A) to build a beautiful, high-performance cloud dashboard. My goal was to craft a UI that feels like a **premium, top-tier SaaS product**. âœ¨
 
 ---
 
-## í» ï¸ My Approach: How I Built It
-
-I wanted to make my code super clean and my UI incredibly smooth. Here is exactly what I did in simple words:
+## ğŸ—ï¸ Architecture & Approach
 
 ### 1. âš¡ Smart Data Fetching (SWR)
-To make this real, I built a custom **Next.js Backend API Route** (`/api/costs`) instead of just hiding fake data in the UI components. 
-To get this data to the screen, I used a library called **SWR**:
-* **Why SWR?** It is a highly intelligent "memory cache". When you click through the dashboard, SWR remembers the data you already loaded. This means zero extra network requests and **instant, lightning-fast clicks!** í¿ï¸
 
-### 2. í¾¨ Premium Glass Design (Tailwind CSS)
-I designed a sleek, modern "Glassmorphism" look using **Tailwind CSS**. 
-Instead of typing messy color codes everywhere, I set up professional **Design Tokens** (like `--brand-base`) inside my `globals.css` file.
-* **Why?** It keeps my code organized. If the team ever wants to add a "Dark Mode", I only have to change the colors in one single file and the entire app updates instantly! í¼—
+I built a custom **Next.js Backend API Route** (`/api/costs`) and fetched data using **SWR**.
 
-### 3. í³± Flawless Mobile Experience 
-Dashboards usually look terrible on cell phones because tables get squished. I made sure this app is **100% Mobile Responsive**. 
-I built a smooth horizontal swipe system for the data table. Now, no matter how small your phone screen is, the numbers look crisp, clear, and perfectly spaced! í³±í±ˆ
+- **Why?** It provides local caching, deduplication, and zero extra network requests when navigating back and forth, resulting in **lightning-fast UI updates**. âš¡
 
-### 4. í¾¬ Beautiful Animations (Framer Motion)
-A high-end app should never look jittery or choppy. I used **Framer Motion** with custom **Spring Physics** (giving elements real-world bounce and weight).
-* When you click a bar chart, the old data softly fades out, and the detailed nested data seamlessly animates right into place! âœ¨
-* Hover over the bar charts to see the custom dark-mode hover tooltips!
+### 2. ğŸ¨ Premium Glass Design & Layout (Tailwind CSS)
 
-### 5. í²¡ Helpful Smart Tooltips & Navigation
-I added interactive **Dark CSS Tooltips** across the top navigation breadcrumbs. Whenever you get lost in the nested folders, simply hover over the breadcrumbs and a beautiful dark label perfectly pops up to say exactly where you will go back to! í·­
+I implemented a sleek "Glassmorphism" UI using **Tailwind CSS v4**.
 
----
+- I utilized **Design Tokens** (e.g., `--brand-base`) for scalable theming and consistency. The layout is constrained perfectly to prevent overflow and squishing on mobile devices. ğŸ¨
 
-## í²» Technical Stack Overview
+### 3. ğŸ“± Flawless Mobile Experience
 
-* **Framework:** Next.js 15 (App Router) + React 19 âš›ï¸
-* **Styling:** Tailwind CSS v4 í¾¨
-* **Animations:** Framer Motion í¾¬
-* **Data Fetcher:** SWR í´„
-* **Language:** TypeScript í¶º (To keep my code perfectly safe from bugs)
-* **Icons:** Lucide React í¶¼ï¸
+Dashboards often break on mobile. I built a layout that strictly respects viewport bounds:
+
+- Adaptive breadcrumbs, seamless horizontal scroll for tables, and strict flex-wrap constraints ensure it looks crisp and professional on any device screen. ğŸ“±
+
+### 4. âœ¨ Fluid Animations (Framer Motion)
+
+Used **Framer Motion** with `popLayout` and custom spring physics.
+
+- **Why?** Seamless layout transitions. When navigating the hierarchy, old data gracefully exits while new data animates in without layout jumps. âœ¨
 
 ---
 
-## í´” Tradeoffs & Honest Thoughts
+## ğŸ› ï¸ Technical Stack
 
-If I had a large database with thousands of servers, I would not fetch the entire cluster folder at once. I would set up "lazy-loading" so it only downloads the specific folder you clicked on. 
-However, for this challenge, the file size was small enough that fetching it all instantly upfront gave the best user experience! â±ï¸
+- **Framework:** Next.js 15 (App Router) + React 19 âš›ï¸
+- **Styling:** Tailwind CSS v4 ğŸ¨
+- **Animations:** Framer Motion ğŸ’«
+- **Data Fetcher:** SWR ğŸ”„
+- **Language:** TypeScript ğŸ“˜
+- **Icons:** Lucide React ğŸ–¼ï¸
 
 ---
 
-## í¿ƒâ€â™‚ï¸ How to Run It on Your Machine
+## âš–ï¸ Key Decisions & Tradeoffs
 
-1. Clone this repository to your computer.
-2. Open your terminal and install the tools:
+- **Data Loading Strategy:** For this scope, loading the full hierarchy upfront provides the most instant, satisfying user experience. In a production environment with thousands of nodes, I would transition to **lazy-loading** nested nodes on demand to optimize bandwidth.
+- **State Management:** Avoided heavy global state (like Redux). SWR acting as a server-state cache combined with local component state (for navigation depth) keeps the architecture much simpler and more maintainable.
+
+---
+
+## ğŸƒâ€â™‚ï¸ How to Run Locally
+
+1. Clone this repository.
+2. Install dependencies:
    ```bash
    npm install
    ```
-3. Start the local server! íº€
+3. Start the local server:
    ```bash
    npm run dev
    ```
-4. Open your web browser and go to: [http://localhost:3000](http://localhost:3000)
+4. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
----
-
-Thank you so much for the opportunity! I poured a lot of love into every small pixel, animation transition, and line of code. I hope you enjoy interacting with it just as much as I enjoyed building it! í¾‰ í¹‡â€â™‚ï¸
+Thank you for the opportunity! I poured a lot of care into the UX, animations, and clean code. Hope you enjoy interacting with it! ğŸš€
