@@ -16,7 +16,7 @@ export interface CloudMetric {
 const fetcher = async () => {
   await new Promise((resolve) => setTimeout(resolve, 600)); // Simulate latency
 
-  // Generating deterministic hierarchical data
+  // Generating deterministic hierarchical data (3 levels: Cluster -> Namespace -> Pod)
   return ["A", "B", "C", "D"].map((letter, i) => {
     const multiplier = 4 - i;
     const baseTotal = 1500 * multiplier;
@@ -42,6 +42,18 @@ const fetcher = async () => {
         gpu: i < 2 ? (400 * multiplier) / 3 : 0,
         efficiency: 10 + i * 8 + num,
         total: baseTotal / 3,
+        // Nested pod data for the 3rd level drill-down
+        children: [1, 2, 3, 4, 5].map((podNum) => ({
+          id: `pod-${letter}-${num}-${podNum}`,
+          name: `Pod ${podNum}`,
+          cpu: (500 * multiplier) / 15,
+          ram: (300 * multiplier) / 15,
+          storage: (50 * multiplier) / 15,
+          network: (40 * multiplier) / 15,
+          gpu: i < 2 ? (400 * multiplier) / 15 : 0,
+          efficiency: 10 + i * 8 + num + podNum,
+          total: baseTotal / 15,
+        })),
       })),
     };
   });

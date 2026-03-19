@@ -13,7 +13,7 @@ export interface PodData {
 }
 
 // Simulated fetcher that allows caching and simulates network delay
-const fetcher = async (url: string) => {
+const fetcher = async () => {
   // Use a public endpoint but return our required schema for predictability
   // Replaces: await fetch('https://jsonplaceholder.typicode.com/todos/1');
 
