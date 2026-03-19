@@ -41,17 +41,23 @@ export function MetricChart({
               onClick={() => onSelect(metric)}
               className="chart-bar group relative flex flex-col items-center justify-end h-full w-full max-w-[48px] sm:max-w-none sm:w-28 md:w-32 cursor-pointer"
             >
-              {/* Tooltip on hover */}
-              <motion.div className="absolute -top-16 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none bg-white/90 backdrop-blur-xl border border-white/50 text-gray-800 text-xs py-2 px-3 sm:px-4 rounded-2xl font-medium whitespace-nowrap shadow-[0_8px_30px_rgb(0,0,0,0.12)] z-20 flex flex-col items-center gap-0.5 scale-90 group-hover:scale-100 origin-bottom">
-                <span className="text-[10px] sm:text-[11px] text-gray-500 tracking-wider uppercase font-semibold">
-                  {metric.name}
-                </span>
-                <span className="text-sm border-t border-gray-100 font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-(--brand-dark) to-(--brand-base) mt-0.5 pt-0.5">
-                  ${metric.total.toLocaleString()}
-                </span>
-              </motion.div>
-
               <div className="w-full flex items-end justify-center h-full relative">
+                {/* Dynamically Positioned Metric Tooltip UI 💬 */}
+                <div
+                  className="absolute left-1/2 -translate-x-1/2 flex flex-col items-center justify-end z-50 pointer-events-none mb-3"
+                  style={{ bottom: `${heightPercent}%` }}
+                >
+                  <div className="opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none bg-gray-900 text-white py-2 px-3 sm:px-4 rounded-xl font-medium whitespace-nowrap shadow-[0_10px_40px_-10px_rgba(0,0,0,0.3)] flex flex-col items-center gap-0.5 scale-95 group-hover:scale-100 origin-bottom">
+                    <span className="text-[10px] sm:text-[11px] text-gray-400 tracking-widest uppercase font-black">
+                      {metric.name}
+                    </span>
+                    <span className="text-sm font-extrabold text-(--brand-light) mt-0.5">
+                      ${metric.total.toLocaleString()}
+                    </span>
+                    <div className="absolute top-full left-1/2 -translate-x-1/2 w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[6px] border-t-gray-900"></div>
+                  </div>
+                </div>
+
                 {/* Optional glow effect behind bar */}
                 <div
                   className="absolute bottom-0 w-full bg-(--brand-base) blur-xl opacity-0 group-hover:opacity-30 transition-opacity duration-500 rounded-t-2xl z-0"

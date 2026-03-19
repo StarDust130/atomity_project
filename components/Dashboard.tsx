@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useCloudData, type CloudMetric } from "../hooks/useCloudData";
 import { MetricChart } from "./MetricChart";
 import { MetricTable } from "./MetricTable";
@@ -10,24 +10,10 @@ import { ChevronRight, CalendarDays, Loader2, AlertCircle } from "lucide-react";
 export default function Dashboard() {
   const { data, isLoading, isError } = useCloudData();
   const [path, setPath] = useState<CloudMetric[]>([]);
-  const [showBackTooltip, setShowBackTooltip] = useState(false);
-  const [hasSeenTooltip, setHasSeenTooltip] = useState(false);
-
-  useEffect(() => {
-    let timer: NodeJS.Timeout;
-    if (showBackTooltip) {
-      timer = setTimeout(() => setShowBackTooltip(false), 3500);
-    }
-    return () => clearTimeout(timer);
-  }, [showBackTooltip]);
 
   const handleSelect = (metric: CloudMetric) => {
     if (metric.children && metric.children.length > 0) {
       setPath([...path, metric]);
-      if (!hasSeenTooltip) {
-        setShowBackTooltip(true);
-        setHasSeenTooltip(true);
-      }
     }
   };
 
@@ -37,7 +23,6 @@ export default function Dashboard() {
     } else {
       setPath(path.slice(0, index + 1));
     }
-    setShowBackTooltip(false);
   };
 
   if (isLoading)
@@ -74,7 +59,7 @@ export default function Dashboard() {
         <div className="absolute -bottom-32 -left-32 w-[500px] h-[500px] bg-blue-400/10 rounded-full blur-[100px] opacity-30" />
       </div>
 
-      <header className="relative flex flex-col md:flex-row items-start md:items-center justify-between gap-5 md:gap-6 mb-8 z-10 w-full">
+      <header className="relative flex flex-col md:flex-row items-start md:items-center justify-between gap-4 md:gap-6 mb-8 z-10 w-full">
         <div className="flex flex-col">
           <motion.h1
             initial={{ opacity: 0, x: -20 }}
@@ -98,90 +83,91 @@ export default function Dashboard() {
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
-          className="flex flex-row w-full md:w-auto items-center gap-2 sm:gap-3 justify-between md:justify-end shrink-0"
+          className="flex flex-row w-full md:w-auto items-center gap-3 justify-between md:justify-end shrink min-w-0"
         >
+          {/* Last 30 Days Button with Cool Tooltip 🌟 */}
           <div className="relative group shrink-0">
-            <button className="justify-center flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 bg-white/80 backdrop-blur-md border border-white shadow-sm rounded-xl font-semibold text-[13px] sm:text-sm text-gray-700 hover:bg-white hover:shadow-md hover:scale-105 transition-all focus:ring-2 focus:ring-(--brand-light) outline-none whitespace-nowrap">
+            <button className="flex items-center justify-center gap-2 px-4 py-2.5 bg-white border border-gray-100 shadow-sm rounded-2xl font-bold text-[13px] sm:text-sm text-gray-700 hover:shadow-md hover:border-gray-200 transition-all focus:ring-2 focus:ring-(--brand-light) outline-none">
               <CalendarDays className="w-4 h-4 text-(--brand-base)" />
               <span className="hidden sm:inline">Last 30 Days</span>
               <span className="sm:hidden">30D</span>
             </button>
-            <div className="absolute -bottom-12 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none bg-gray-900 text-white text-[11px] sm:text-xs font-semibold px-3 py-1.5 rounded-lg shadow-xl z-50 whitespace-nowrap scale-95 group-hover:scale-100">
-              Calendar not available 🥺
-              <div className="absolute -top-1 left-1/2 -translate-x-1/2 border-4 border-transparent border-b-gray-900" />
+
+            {/* Tooltip (Desktop Only) */}
+            <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none hidden sm:flex flex-col items-center z-50 translate-y-2 group-hover:translate-y-0">
+              <div className="bg-gray-900 text-white text-xs py-2 px-3 rounded-lg font-semibold whitespace-nowrap shadow-xl flex items-center gap-2">
+                <span className="text-gray-400 uppercase text-[10px] tracking-widest border-r border-gray-700 pr-2">
+                  Filter
+                </span>
+                <span>Coming Soon</span>
+              </div>
+              <div className="w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[6px] border-t-gray-900"></div>
             </div>
           </div>
 
-          {/* Breadcrumb Navigation */}
-          <div className="flex w-full sm:w-auto bg-gray-50/80 backdrop-blur-md border border-gray-200/60 rounded-xl overflow-x-auto custom-scrollbar p-1.5 shadow-inner relative max-w-full">
-            <div className="flex items-center min-w-max relative gap-1">
-              <div className="relative group">
+          {/* Breadcrumb Navigation 🧭 Matches Screenshot Exactly */}
+          <div className="inline-flex items-center w-auto max-w-full flex-wrap overflow-visible bg-gray-50/80 border border-gray-100 shadow-inner rounded-2xl p-1.5 sm:p-2 min-w-0 shrink-0">
+            <div className="flex items-center gap-1 flex-wrap sm:flex-nowrap">
+              <div className="relative group flex">
                 <button
                   onClick={() => handleGoBack(-1)}
-                  className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-[10px] text-[13px] sm:text-sm font-bold transition-all duration-300 whitespace-nowrap ${
+                  className={`px-4 py-1.5 rounded-xl text-[14px] font-extrabold transition-all duration-300 whitespace-nowrap ${
                     path.length === 0
-                      ? "bg-white text-(--brand-dark) shadow-sm ring-1 ring-gray-200/50"
-                      : "text-gray-500 hover:text-gray-800 hover:bg-white/60"
+                      ? "bg-white text-(--brand-base) shadow-sm ring-1 ring-gray-100"
+                      : "text-gray-600 hover:text-gray-900 hover:bg-gray-200/50"
                   }`}
                 >
                   Clusters
                 </button>
-                {/* Tooltip for the FIRST step back (points to Clusters when inside Cluster A) */}
-                <AnimatePresence>
-                  {showBackTooltip && path.length === 1 && (
-                    <motion.div
-                      initial={{ opacity: 0, scale: 0.8, y: -5 }}
-                      animate={{ opacity: 1, scale: 1, y: 0 }}
-                      exit={{ opacity: 0, scale: 0.8, y: -5 }}
-                      className="absolute -top-10 left-1/2 -translate-x-1/2 bg-gray-900 text-white text-xs font-semibold px-3 py-1.5 rounded-lg shadow-xl z-50 whitespace-nowrap pointer-events-none"
-                    >
-                      Click here to go back
-                      <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-gray-900" />
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                {/* Tooltip */}
+                {path.length > 0 && (
+                  <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none flex flex-col items-center z-50 translate-y-2 group-hover:translate-y-0">
+                    <div className="bg-gray-900 text-white text-[11px] py-1.5 px-3 rounded-lg font-semibold whitespace-nowrap shadow-xl">
+                      Back to root
+                    </div>
+                    <div className="w-0 h-0 border-l-[5px] border-l-transparent border-r-[5px] border-r-transparent border-t-[5px] border-t-gray-900"></div>
+                  </div>
+                )}
               </div>
 
               <AnimatePresence>
-                {path.map((segment, index) => (
-                  <motion.div
-                    key={segment.id}
-                    initial={{ opacity: 0, scale: 0.9, width: 0 }}
-                    animate={{ opacity: 1, scale: 1, width: "auto" }}
-                    exit={{ opacity: 0, scale: 0.9, width: 0 }}
-                    className="flex items-center overflow-visible relative"
-                  >
-                    <ChevronRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-400 shrink-0 mx-0.5" />
-                    <div className="relative group">
-                      <button
-                        onClick={() => handleGoBack(index)}
-                        className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-[10px] text-[13px] sm:text-sm font-bold transition-all duration-300 whitespace-nowrap ${
-                          index === path.length - 1
-                            ? "bg-white text-(--brand-dark) shadow-sm ring-1 ring-gray-200/50"
-                            : "text-gray-500 hover:text-gray-800 hover:bg-white/60"
-                        }`}
-                      >
-                        {segment.name.split(" ")[1] || segment.name}
-                      </button>
-                      {/* Tooltip for deeper steps back (points to current parent) */}
-                      <AnimatePresence>
-                        {showBackTooltip &&
-                          path.length > 1 &&
-                          index === path.length - 2 && (
-                            <motion.div
-                              initial={{ opacity: 0, scale: 0.8, y: -5 }}
-                              animate={{ opacity: 1, scale: 1, y: 0 }}
-                              exit={{ opacity: 0, scale: 0.8, y: -5 }}
-                              className="absolute -top-10 left-1/2 -translate-x-1/2 bg-gray-900 text-white text-xs font-semibold px-3 py-1.5 rounded-lg shadow-xl z-50 whitespace-nowrap pointer-events-none"
-                            >
-                              Click to go back
-                              <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-gray-900" />
-                            </motion.div>
-                          )}
-                      </AnimatePresence>
-                    </div>
-                  </motion.div>
-                ))}
+                {path.map((segment, index) => {
+                  const isLast = index === path.length - 1;
+                  return (
+                    <motion.div
+                      key={segment.id}
+                      initial={{ opacity: 0, scale: 0.9, width: 0 }}
+                      animate={{ opacity: 1, scale: 1, width: "auto" }}
+                      exit={{ opacity: 0, scale: 0.9, width: 0 }}
+                      className="flex items-center"
+                    >
+                      <ChevronRight className="w-4 h-4 text-gray-400 mx-0.5 sm:mx-1 shrink-0" />
+                      <div className="relative group flex">
+                        <button
+                          onClick={() => handleGoBack(index)}
+                          className={`px-4 py-1.5 rounded-xl text-[14px] font-extrabold transition-all duration-300 whitespace-nowrap ${
+                            isLast
+                              ? "bg-white text-(--brand-base) shadow-sm ring-1 ring-gray-100"
+                              : "text-gray-500 hover:text-gray-900 hover:bg-gray-200/50"
+                          }`}
+                        >
+                          {segment.name.split(" ")[1] || segment.name}
+                        </button>
+
+                        {/* Tooltip */}
+                        {!isLast && (
+                          <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none flex flex-col items-center z-50 translate-y-2 group-hover:translate-y-0">
+                            <div className="bg-gray-900 text-white text-[11px] py-1.5 px-3 rounded-lg font-semibold whitespace-nowrap shadow-xl">
+                              Go back to{" "}
+                              {segment.name.split(" ")[1] || segment.name}
+                            </div>
+                            <div className="w-0 h-0 border-l-[5px] border-l-transparent border-r-[5px] border-r-transparent border-t-[5px] border-t-gray-900"></div>
+                          </div>
+                        )}
+                      </div>
+                    </motion.div>
+                  );
+                })}
               </AnimatePresence>
             </div>
           </div>
@@ -189,14 +175,14 @@ export default function Dashboard() {
       </header>
 
       {/* Force re-mount of components when data level changes for fresh animations */}
-      <AnimatePresence mode="wait">
+      <AnimatePresence mode="popLayout">
         <motion.div
           key={currentParentId}
-          initial={{ opacity: 0, y: 30, filter: "blur(4px)" }}
-          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          exit={{ opacity: 0, y: -20, filter: "blur(4px)" }}
-          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-          className="relative z-10 flex-col"
+          initial={{ opacity: 0, scale: 0.98, filter: "blur(4px)" }}
+          animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+          exit={{ opacity: 0, scale: 0.95, filter: "blur(4px)" }}
+          transition={{ duration: 0.35, ease: "easeInOut" }}
+          className="relative z-10 flex-col w-full"
         >
           <MetricChart data={currentViewData} onSelect={handleSelect} />
           <MetricTable data={currentViewData} />
